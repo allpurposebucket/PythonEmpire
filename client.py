@@ -27,6 +27,8 @@ while True:
         try:
             os.chdir(" ".join(split_command[1:]))
         except FileNotFoundError as e:
+            if len(split_command) == 1:
+                os.chdir("$HOME")
             output = str(e)
         else:
             output = ""

