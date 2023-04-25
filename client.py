@@ -25,10 +25,11 @@ while True:
         break
     if split_command[0].lower() == "cd":
         try:
-            os.chdir(" ".join(split_command[1:]))
-        except FileNotFoundError as e:
             if len(split_command) == 1:
-                os.chdir("$HOME")
+                os.chdir(subprocess.getoutput("echo $HOME"))
+            else:
+                os.chdir(" ".join(split_command[1:]))
+        except FileNotFoundError as e:
             output = str(e)
         else:
             output = ""
